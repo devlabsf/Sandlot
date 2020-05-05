@@ -12,7 +12,7 @@ class League:
   def add_team(self, team):
     self.teams.append(team)
   
-  def load_data(self):
+  def load_data_text(self):
     f = open("leagues.txt","r")
     for line in f:
       teamname, players = line.rstrip().split(":")
@@ -22,12 +22,8 @@ class League:
         newteam.players.append(player)
 
 '''
-once we can write the data to a file,
-we should replace the below code so that 
-we read in the file data...instead 
-of reinitializing it from scratch every time!
+read data from pickled file
 '''
-
 #brosleague = League("DevLabBros League")
 #brosleague.add_team(team.Team("Giants"))
 #brosleague.add_team(team.Team("Dodgers"))
@@ -39,11 +35,20 @@ of reinitializing it from scratch every time!
 #brosleague.teams[1].add_to_roster(player.Player("Joe","69","First Base"))
 #brosleague.teams[1].add_to_roster(player.Player("Jack","123","pitcher"))
 
-store = store.Store()
-f = open("league.db",'rb')
+f = open("data/league.db",'rb')
 brosleague = pickle.load(f)
 f.close()
 
-f = open("league.db",'wb')
-pickle.dump(brosleague,f)
-f.close()
+#f = open("league.db",'wb')
+#pickle.dump(brosleague,f)
+#f.close()
+
+store = store.Store()
+
+#f = open("store.db",'rb')
+#store = pickle.load(f)
+#f.close()
+
+#f = open("store.db",'wb')
+#pickle.dump(store,f)
+#f.close()

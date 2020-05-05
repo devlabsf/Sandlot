@@ -1,3 +1,16 @@
+from termcolor import colored
+positions = [
+  'Third base ',
+  'Second base ',
+  'First base ',
+  'Catcher ',
+  'Pitcher ',
+  'Left Field ',
+  'Right Field ',
+  'Center Field',
+  'Shortstop ',
+  ]
+
 class Player:
 
   def __init__(self, name, number, position):
@@ -10,9 +23,7 @@ class Player:
     self.avg = 0.0
     self.likes = []
 
-  def add_like(self, like):
-    self.likes.append(like)
-
+  #def add_like(self, like
   def modify(self):
     ch = input("Change player name? ")
     if ch in ['y','Y','yes','YES']:
@@ -24,7 +35,11 @@ class Player:
       self.number = num
     ch = input("Change player position? ")
     if ch in ['y','Y','yes','YES']:
+      for i, item in enumerate(positions):
+        print(f"{i+1}. {item}")
       pos = input("Enter new position: ")
+      if pos not in positions:
+        print("You cheater muffin! That's not a position!")
       self.position = pos
     ch = input("Add a player's like? ")
     if ch in ['y','Y','yes','YES']:

@@ -7,7 +7,7 @@ class Store:
   def __init__(self):
     self.stuff = []
     
-  def save_data_store(self):
+  def save_data_store_text(self):
     f = open("store.txt","w")
     for team in league.league.teams:
       for thing in self.stuff:

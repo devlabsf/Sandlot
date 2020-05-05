@@ -1,7 +1,7 @@
 import random
 import player
 import time
-
+shapenames = ["Irregular hexagon","","","",""]
 class Team:
 
   def __init__(self, name, dh=None, xp=100):
@@ -15,7 +15,15 @@ class Team:
   def add_player(self):
     name = input("What is new player's name? ")
     num = input("Enter new player's number: ")
-    position = input("Enter new player's position: ")
+    while True:
+      for i, item in enumerate(player.positions):
+        print(f"{i+1}. {item}") 
+      pos = int(input("Enter new position: "))
+      if pos not in range(len(player.positions)):
+        print("You irregular hexagon! That's not a valid number!")
+      else:
+        break
+    position = player.positions[pos - 1]
     p1 = player.Player(name, num, position)
     self.add_to_roster(p1)
 

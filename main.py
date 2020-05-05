@@ -13,6 +13,7 @@ import time
 import team
 from league import *
 from termcolor import colored
+import sys
 #import game
 
 print("***************************")
@@ -28,23 +29,21 @@ time.sleep(0.5)
 print("Lazlo's signature\u2b50  ".center(27,'*'))
 print("***************************")
 print(" ")
+def slowprint(s):
+  for c in s:
+    sys.stdout.write(c)
+    sys.stdout.flush()
+    time.sleep(1./10)
+    
+def clear():
+  sys.stdout.write("\033[2J\033[H")
 
 def save_data():
-  # write league data
-  f = open("leagues.txt","w")
-  for team in league.teams:
-    f.write(team.name)
-    for player in team.players:
-      f.write(player.name)
+  f = open("data/league.db",'wb')
+  pickle.dump(brosleague,f)
+  f.close()
   
 def main():
-  """
-  we'll need to load data here, before main loop starts. For now we're using dummy data, and default is to select the first team in the league.
-  """
-  #brosleague = league.League("DevLabBros League")
-  # don't load yet; load_data() is not working
-  #brosleague.load_data()
-  #brosleage = league.league
   team = brosleague.teams[0]
 
   while True:
@@ -52,15 +51,15 @@ def main():
     print(colored("**** TEAM MANAGER MENU ****","yellow"))
     print(colored(f" {team.name} ".center(27,'*'),"yellow"))
     print(colored("***************************","yellow"))
-    print("a. list player stats")
-    print("b. add player")
-    print("c. cut player")
-    print("d. modify player profile")
-    print("e. batting practice")
-    print("f. trade players")
-    print("g. go to store")
-    print("h. select another team")
-    print("q. quit/save")  
+    print(colored("a. list player stats", "red"))
+    print(colored("b. add player", "yellow"))
+    print(colored("c. cut player", "green"))
+    print(colored("d. mdify player profile", "blue"))
+    print(colored("e. batting practice", "cyan"))
+    print(colored("f. trade players", "yellow"))
+    print(colored("g. go to store", "green"))
+    print(colored("h. select another team", "blue"))
+    print(colored("q. quit/save", "red")) 
   
     option = input("Pick one: ")
     if option in ['a','A']:

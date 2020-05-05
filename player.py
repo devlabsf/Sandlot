@@ -31,8 +31,6 @@ class Player:
       item = input("Add a new player like: ")
       self.likes.append(item)
 
-
-
   def rename(self, name):
     self.name = name
 

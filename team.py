@@ -1,31 +1,49 @@
 import random
 import player
 import time
-shapenames = ["Irregular hexagon","","","",""]
-class Team:
+from termcolor import colored
 
-  def __init__(self, name, dh=None, xp=100):
+names = ['Irregular Hexagon','Isosceles Triangle','Scalene Triangle','Irregular Square','Numpty Muffin','Ragamuffin','Muffinhead','Muffin','Custom Cursor','Slowprint','Evil Mastermind Baguette','Cold Quesadilla', 'Big fat cheater bufffff']
+
+class Team:
+  
+  def __init__(self, name, dh=None):
     self.name = name
     self.players = []
     self.bats = None
     self.gloves = None
     self.dh = dh
-    self.xp = xp
+    self.xp = 100
+    self.batter = 0
 
   def add_player(self):
     name = input("What is new player's name? ")
     num = input("Enter new player's number: ")
     while True:
       for i, item in enumerate(player.positions):
-        print(f"{i+1}. {item}") 
-      pos = int(input("Enter new position: "))
-      if pos not in range(len(player.positions)):
-        print("You irregular hexagon! That's not a valid number!")
+        print(f"{i+1}. {item}")
+      while True:
+        try:
+          pos = int(input("Enter new position: "))
+        except:
+          insult("That's not a valid number!")
+        else:
+          break
+      if pos not in range(len(player.positions)+1):
+        insult("That is so not a valid number!")
       else:
         break
-    position = player.positions[pos - 1]
+    position = player.positions[pos-1]
     p1 = player.Player(name, num, position)
     self.add_to_roster(p1)
+
+  def print_roster(self):
+    for player in self.players:
+      player.stats()
+    if self.dh:
+      print("---------------------------")
+      print(f"Designated hitter: {self.dh}")
+    print("")
 
   def add_to_roster(self, player):
     self.players.append(player)
@@ -37,14 +55,14 @@ class Team:
     try:
       del self.players[num-1]
     except:
-      print("error removing player")
+      insult("Error removing player!")
 
   def team_manager(self, name, boss_level=5):
     self.manager_name = name
     self.boss_level = boss_level
 
   def batting(self, hits):
-    if store.gloves == True: 
+    if self.gloves == True: 
       if hits == 1 or 2 or 3:
           print("You hit a ball!")
           self.xp+=4
@@ -63,7 +81,6 @@ class Team:
           if hits == 13:
             print("You hit a Home Run!")
             self.xp=self.xp+80
-
     else:
       hits = random.randint(5,30)
       self.hits = hits
@@ -138,7 +155,7 @@ class Team:
       if self.dh:
         print("Sorry you can't buy this. You already have one.")
       elif self.xp < 40:
-        print("Sorry, you don't have enough to pay for this.")
+        insult("You don't have enough to pay for this.")
       else:
         self.xp -= 40
         print("Great! you got your team a Designated Hitter")
@@ -146,33 +163,35 @@ class Team:
     if store_choice in ['b', 'B']:
       print("Bats cost: 12xp")
       if self.bats:
-        print("Sorry you cant buy this. You already have it")
+        insult("You already have bats!")
       elif self.xp < 12:
-        print("Sorry, you don't have enough to pay for this.")
+        insult("You don't have enough to pay for this.")
       else:
         self.xp -= 12
         print("You got your team bats.")
         self.bats = True      
     if store_choice in ['d', 'D']:
       if self.gloves:
-        print("Sorry you can't buy this. You already have it")
+        insult("You can't buy gloves. You already have them!")
         print("Gloves cost: 5xp")
       elif self.xp < 5:
-        print("Sorry, you don't have enough to pay for this.")
+        insult("You don't have enough to pay for this.")
       else:
         self.xp-=5
         print("You got your team gloves!")
         self.gloves = True   
     if store_choice in ['e', 'E']:
       print(f"To upgrade outfielders cost: {costamountoutfield} xp")
-      if team.xp < 10:
-        print("Sorry, you don't have enough to pay for this.")   
+      if self.xp < 10:
+        insult("You don't have enough to pay for this!")   
       else:
         costamountoutfield =+ 10
     if store_choice in ['f', 'F']:
       print(f"To upgrade infielders costs: {costamountinfield} xp")
       if self.xp < 10:
-        print("Sorry, you don't have enough to pay for this.")
+        insult("You don't have enough to pay for this!")
       else:
         costamountinfield=+10
-        
+
+def insult(msg):
+  print(colored(f"You {random.choice(names)}! {msg}","green"))

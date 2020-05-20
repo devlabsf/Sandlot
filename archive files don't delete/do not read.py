@@ -1,3 +1,4 @@
+"""RIP"""
 def user(self):
   hav_username = input("Do you have a account? (y/n) ", 'green')
   if hav_username == "y":

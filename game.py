@@ -2,7 +2,6 @@ import random
 import time
 import store 
 import team
-import team2
 import player
 import league
 
@@ -21,21 +20,24 @@ class Game:
   def game():
     boh = random.randint(1,2)
     if boh == 1:
-      print("You got unlucky. You are hitting! ")
+      print("You got unlucky. You are hitting! ") 
     if boh == 2:
-      print("You got lucky. You are pitching! ")
-    hits = random.randint(1,14)
+      print("You got lucky. You are pitching! ") 
+    hits = random.randint(1,13)
     if hits == 1 or 2 or 3:
       print("You hit a ball!")
-      team.xp+=4
+      team.xp+=0
     if hits == 4 or 5 or 6:
       print("Strike!")
     if hits == 7 or 8 or 9:
       print("You hit a single") 
+      team.xp+=5
     if hits == 10 or 11:
       print ("You hit a double")
+      team.xp+=6
     if hits == 12:
-      print("You hit a triple")          
+      print("You hit a triple")
+      team.xp+=7
     if hits == 13:
         print("You hit a Home Run!")
        

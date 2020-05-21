@@ -1,25 +1,13 @@
+import random
+import pickle
+import time
+from termcolor import colored
+
 import team
 import player
-import pickle
-import league
-import time
-import random
-# FYI you don't need both of the above two lines, only choose
-# one. If you want to import choice and randint, then you can do
-# from random import choice, randint
-# I am back in now though!
-pitchers = ['Joe', 'Jim', 'Bob','Jimbob','Bob. Jr','Bobjim']
-innings = {
-  1: "first",
-  2: "second",
-  3: "third",
-  4: "fourth",
-  5: "fifth",
-  6: "sixth",
-  7: "seventh",
-  8: "eighth",
-  9: "ninth"
-}
+from utils import *
+
+pitchers = ['Joe', 'Jim', 'Bob','Jimbob','Bob Jr.','Bobjim','Bobby','Bobby Joe','Joe Bob','Jimmy','Bobby Jim']
 
 class League:
   def __init__(self, name):
@@ -39,11 +27,11 @@ class League:
       for player in players:
         newteam.players.append(player)
 
-
 class Store:
   def __init__(self):
     self.stuff = []
     
+  # old (unused) function
   def save_data_store_text(self):
     f = open("store.txt","w")
     for team in league.league.teams:
@@ -81,8 +69,7 @@ def playgame():
   #  time.sleep("5")
 
   print(f"It's on! {team1.name} versus {team2.name}!")
-  time.sleep(1)
-  gameover = False
+  time.sleep(0.5)
   for inning in range(1,10):
     for side in ("top","bottom"):
       if side == "top":
@@ -92,20 +79,25 @@ def playgame():
         team_at_bat = team2
         team_in_field = team1
       pitcher = random.choice(pitchers)
-      print(f"*** It's the {side} of the {innings[inning]}! ***")
+      bases = 0b0
+      print(50 * '-')
+      print(f"{team_at_bat.name}: {team_at_bat.gamescore}  |  {team_in_field.name}: {team_in_field.gamescore}")
+      print(50 * '-')
+      print(f"* It's the {side} of the {innings[inning]}! *")
       print(f"At bat: {team_at_bat.name}")
       print(f"In the field: {team_in_field.name}")
       print(f"Now pitching: {pitcher}")
       outs = 0
       while outs < 3:
         batter = team_at_bat.players[team_at_bat.batter]
-        print(30*'-')
-        print(f"Up to bat: {batter.name}")
-        input("(Hit enter key to swing)")
+        print(30 * '-')
+        print(colored(f"Up to bat: {batter.name}","yellow"))
+        input("(Hit enter key to bat) ")
         nextup = False
         strikes = 0
         while not nextup:
-          outcome = batter.swing()
+          outcome, xp = swing()
+          team_at_bat.xp += xp
           print(f"{batter.name} swings...{outcome}!")
           if outcome == "strike":
             strikes += 1
@@ -116,8 +108,16 @@ def playgame():
             outs += 1
           if outcome in ("single","double","triple","home run","out"):
             nextup = True
+        if outcome in hit_score:
+          bases, runs = calc_bases(bases, outcome)
+          if runs:
+            print(f"{runs} runs batted in!!")
+            team_at_bat.gamescore += runs
+          #print(f"Bases: {bin(bases)}")
+        report_players_on_base(bases)
+        print(f"{outs} outs.")
         team_at_bat.batter = (team_at_bat.batter + 1) % len(team_at_bat.players)
-      print("*** Get yer butts out of the dugout!! Now get out there and win! ***")
+      print("* Get yer butts out of the dugout!! Now get out there and win! *")
 
 f = open("data/league.db",'rb')
 brosleague = pickle.load(f)

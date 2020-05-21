@@ -96,7 +96,7 @@ def main():
     if option in ['s','S']:
       save_data()
     if option in ['z','Z']:
-      league.playgame()
+      playgame()
 
 if __name__ == '__main__':
   main()

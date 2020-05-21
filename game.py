@@ -9,8 +9,7 @@ base1 = False
 base2 = False
 base3 = False
 strikes = 0
-team1score = 0
-team2score = 0
+
 class Game:
 
   def __init__(self, team1, team2):

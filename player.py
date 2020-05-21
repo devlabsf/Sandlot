@@ -2,32 +2,8 @@ from termcolor import colored
 from random import choice
 from time import sleep
 
-outcomes = (
-  "foul ball",
-  "foul ball",
-  "foul ball",
-  "strike",
-  "strike",
-  "single",
-  "double",
-  "triple",
-  "home run",
-  "out",
-  "out",
-  "out"
-)
+from utils import *
 
-positions = (
-  'Third base ',
-  'Second base ',
-  'First base ',
-  'Catcher ',
-  'Pitcher ',
-  'Left Field ',
-  'Right Field ',
-  'Center Field',
-  'Shortstop ',
-)
 
 class Player:
 
@@ -71,7 +47,7 @@ class Player:
 
   def swing(self):
     sleep(0.5)
-    return choice(outcomes)
+    return hit()
 
   """ 
   add more stats to player's display 

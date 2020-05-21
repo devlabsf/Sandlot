@@ -1,9 +1,9 @@
 import random
-import player
 import time
 from termcolor import colored
 
-names = ['Irregular Hexagon','Isosceles Triangle','Scalene Triangle','Irregular Square','Numpty Muffin','Ragamuffin','Muffinhead','Muffin','Custom Cursor','Slowprint','Evil Mastermind Baguette','Cold Quesadilla', 'Big fat cheater bufffff']
+import player
+from utils import *
 
 class Team:
   
@@ -15,12 +15,13 @@ class Team:
     self.dh = dh
     self.xp = 100
     self.batter = 0
+    self.gamescore = 0
 
   def add_player(self):
     name = input("What is new player's name? ")
     num = input("Enter new player's number: ")
     while True:
-      for i, item in enumerate(player.positions):
+      for i, item in enumerate(positions):
         print(f"{i+1}. {item}")
       while True:
         try:
@@ -29,11 +30,11 @@ class Team:
           insult("That's not a valid number!")
         else:
           break
-      if pos not in range(len(player.positions)+1):
+      if pos not in range(len(positions)+1):
         insult("That is so not a valid number!")
       else:
         break
-    position = player.positions[pos-1]
+    position = positions[pos-1]
     p1 = player.Player(name, num, position)
     self.add_to_roster(p1)
 

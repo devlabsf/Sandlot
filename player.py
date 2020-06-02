@@ -13,8 +13,10 @@ class Player:
     self.position = position
     self.hits = 0
     self.homeruns = 0
-    self.xp = 0
     self.avg = 0.0
+    self.era = 0.0
+    self.rbi = 0.0
+    self.xp = 0
     self.likes = []
 
   def modify(self):
@@ -36,7 +38,7 @@ class Player:
           print("You cheater muffin! That's not a position!")
         else:
           break
-      self.position = positions[pos]
+      self.position = positions[pos-1]
     ch = input("Add a player's like? ")
     if ch in ['y','Y','yes','YES']:
       item = input("Add a new player like: ")
@@ -45,9 +47,13 @@ class Player:
   def rename(self, name):
     self.name = name
 
-  def swing(self):
-    sleep(0.5)
-    return hit()
+  def update_stats(self, outcome):
+   # Jayden/Harry/Lazlo, you'll want to calculate batting avg, ERA, RBI, etc here.
+    #for example:
+    if outcome in ("single", "double", "triple", "home run"):
+      self.hits += 1
+    if outcome == "home run":
+      self.homeruns += 1
 
   """ 
   add more stats to player's display 

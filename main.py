@@ -1,3 +1,11 @@
+"""
+TO DO:
+• Update all player stats in player.update_stats()
+• When a game is over, there should be a banner or something with the final score
+• Team Manager Menu should show team's record
+• Write routine to load up teams with Live Oak kids. 1 team = 10 kids. randomize their team, team number, position
+
+"""
 import time
 import team
 from league import *

@@ -92,6 +92,7 @@ def playgame():
         batter = team_at_bat.players[team_at_bat.batter]
         print(30 * '-')
         print(colored(f"Up to bat: {batter.name}","yellow"))
+        print(colored(random.choice(commentary),"cyan"))
         input("(Hit enter key to bat) ")
         nextup = False
         strikes = 0
@@ -99,15 +100,17 @@ def playgame():
           outcome, xp = swing()
           team_at_bat.xp += xp
           print(f"{batter.name} swings...{outcome}!")
+          time.sleep(1)
           if outcome == "strike":
             strikes += 1
           if strikes == 3:
             outs += 1
             nextup = True
-          if outcome == "out":
+          if "out" in outcome:
             outs += 1
-          if outcome in ("single","double","triple","home run","out"):
+          if outcome in ("single","double","triple","home run") or ("out" in outcome):
             nextup = True
+          batter.update_stats(outcome)
         if outcome in hit_score:
           bases, runs = calc_bases(bases, outcome)
           if runs:

@@ -1,9 +1,13 @@
 """
 TO DO:
+• Too easy to get hits; adjust values in utils.py
+• Add commentary lines (there is already some but add more)
 • Update all player stats in player.update_stats()
 • When a game is over, there should be a banner or something with the final score
-• Team Manager Menu should show team's record
-• Write routine to load up teams with Live Oak kids. 1 team = 10 kids. randomize their team, team number, position
+• When a game is over, team record should be updated
+• When a game is over, probably should auto-save to the database
+• Team Manager Menu should show team's record (wins/losses)
+• Write a function to load up teams with Live Oak kids. 1 team = 10 kids. randomize their team, team number, position
 
 """
 import time
@@ -43,6 +47,7 @@ def menu(selectedteam):
   print(colored("h. select another team", "blue"))
   print(colored("i. add new team", "cyan"))
   print(colored("j. delete team name", "yellow"))
+  print(colored("k. add players in batch", "yellow"))
   print(colored("s. save", "green"))
   print(colored("q. quit", "blue"))
   print(colored(25 * "-", "red"))
@@ -96,6 +101,9 @@ def main():
         print(f"{i+1}. {t.name}")
       delete_team = int(input("Delete which team? "))
       del brosleague.teams[delete_team - 1]
+    if option in ['k','k']:
+      brosleague.add_players()
+      save_data()
     if option in ['q','Q']:
       yn = input("Now quitting...Save changes? (y/n) ")
       if yn in ['y','Y','yes','YES',"Yes"]:

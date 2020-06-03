@@ -1,20 +1,5 @@
 from random import randint
 
-#outcomes = (
-#  "foul ball",
-#  "foul ball",
-#  "foul ball",
-#  "strike",
-#  "strike",
-#  "single",
-#  "double",
-#  "triple",
-#  "home run",
-#  "out",
-#  "out",
-#  "out"
-#)
-
 positions = (
   'First base ',
   'Second base ',
@@ -48,7 +33,7 @@ hit_score = {
   "home run": 4
 }
 
-# return value is outcome and team XP
+# return value is: (outcome, XP earned)
 def swing():
   hits = randint(1,59)
   if hits >= 1 and hits <= 10:
@@ -72,6 +57,10 @@ def swing():
   if hits >= 58 and hits <=59:
     return("center field out", 1)
 
+"""
+This is the function that calculates the state of the bases 
+(and any runs) after a hit.
+"""
 def calc_bases(bases, hit):
   runs = 0
   #print("Bases:",bin(bases),"Hit:", hit_score[hit], 2 ** hit_score[hit])
@@ -100,4 +89,9 @@ commentary = [
   "Now here comes what some are calling the player of the year.",
   "What an isoceles triangle!",
   "Hey batter batter batter",
+  "The batter stepping up to the plate needs to get their game up right now",
+  "The irregular hexagon is on the plate now",
+  "This batter was caught eating pizza in the dugout. They have tomato sauce all over they're shirt now",
+  "The batter stepping up to plate is the player that makes their team so good",
+  "Ohhhh, that's a stinky smell. You can smell it from a mile away",
 ]

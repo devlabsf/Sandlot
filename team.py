@@ -14,8 +14,9 @@ class Team:
     self.gloves = None
     self.dh = dh
     self.xp = 100
-    self.batter = 0
-    self.gamescore = 0
+    self.batter = None
+    self.wins = 0
+    self.losses = 0
 
   def add_player(self):
     name = input("What is new player's name? ")

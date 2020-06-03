@@ -27,6 +27,23 @@ class League:
       for player in players:
         newteam.players.append(player)
 
+  def add_players(self):
+    for i, t in enumerate(self.teams):
+      print(f"{i+1}. {t.name}")
+    teamnum = int(input("Select which team? ")) -1
+    fname = input("Enter file to use for players: ")
+    try:
+      f = open(fname)
+      names = f.readlines()
+      f.close()
+    except:
+      print("Problem opening file!")
+      return
+    random.shuffle(names)
+    for name in names:
+      p = player.Player(name, random.choice(positions), random.randint(0,100))
+      self.teams[teamnum].add_to_roster(p)
+
 class Store:
   def __init__(self):
     self.stuff = []
@@ -59,8 +76,10 @@ def playgame():
     print(f"{i+1}. {team.name}")
   team1 = int(input("Choose first team to play: "))
   team1 = brosleague.teams[team1-1]
+  team1.gamescore = 0
   team2 = int(input("Choose second team to play: "))
   team2 = brosleague.teams[team2-1]
+  team2.gamescore = 0
   #start_game = input("Do you want to start the game?(y,n)")
   #if start_game == ['N', 'n', 'no', 'No', 'nO', 'NO', 'q', 'Q']:
   #  print("Ok, ending game")
@@ -116,9 +135,11 @@ def playgame():
           if runs:
             print(f"{runs} runs batted in!!")
             team_at_bat.gamescore += runs
-          #print(f"Bases: {bin(bases)}")
         report_players_on_base(bases)
-        print(f"{outs} outs.")
+        if outs == 1:
+          print(f"{outs} out.")
+        else:
+          print(f"{outs} outs.")
         team_at_bat.batter = (team_at_bat.batter + 1) % len(team_at_bat.players)
       print("* Get yer butts out of the dugout!! Now get out there and win! *")
 
